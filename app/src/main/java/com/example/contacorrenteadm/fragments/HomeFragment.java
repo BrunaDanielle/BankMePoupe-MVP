@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.example.contacorrenteadm.R;
 import com.example.contacorrenteadm.base.BaseFragment;
 import com.example.contacorrenteadm.data.BanckServiceImpl;
@@ -26,6 +28,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
     private Button btnTransfer;
     private Button btnLogout;
     private Button btnUpdateBalance;
+    private String emailUser;
+    private Integer idUser;
 
     public static BaseFragment newInstance() {
         return new HomeFragment();
@@ -41,6 +45,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        if (getArguments() != null) {
+            emailUser = getArguments().getString("emailUser");
+            idUser = getArguments().getInt("idUser");
+        }
+
         tvBalance = root.findViewById(R.id.value_available);
 
         actionHome.putDataUser("bruna.silva@evosystems.com.br");

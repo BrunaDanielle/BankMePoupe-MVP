@@ -59,6 +59,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
         i.putExtra("NameUser",client.nameClient);
         i.putExtra("PhotoUser",client.photoProfileClient);
+        i.putExtra("EmailUser",client.emailClient);
+        i.putExtra("IdUser",client.id);
         startActivity(i);
 
     }

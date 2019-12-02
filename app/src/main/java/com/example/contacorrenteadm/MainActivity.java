@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private ImageView ivUser;
     private TextView tvNameUser;
+    private NavigationView navigationView;
+    private String emailUser;
+    private Integer idUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +51,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout);
-        ivUser = findViewById(R.id.imgUser);
-        tvNameUser = findViewById(R.id.nameUser);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (savedInstanceState == null) {
-            add(HomeFragment.newInstance());
-            navigationView.setCheckedItem(R.id.nav_home);
-        }
-        setupDrawerAndToggle();
+        ivUser = headerView.findViewById(R.id.imgUser);
+        tvNameUser = headerView.findViewById(R.id.nameUser);
 
         Intent i = getIntent();
         Bundle extras = i.getExtras();
@@ -66,14 +67,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             finish();
         }
+
+        if (savedInstanceState == null) {
+            add(HomeFragment.newInstance());
+
+            Bundle bundle = new Bundle();
+            bundle.putString("emailUser",emailUser);
+            bundle.putInt("idUser",idUser);
+            HomeFragment home = new HomeFragment();
+            home.setArguments(bundle);
+
+            navigationView.setCheckedItem(R.id.nav_home);
+        }
+        setupDrawerAndToggle();
+
+
     }
 
     private void populateDetails(Bundle extras) {
         tvNameUser.setText(extras.getString("NameUser"));
+
         Picasso.with(this)
                 .load(extras.getString("PhotoUser"))
                 .fit().centerCrop()
                 .into(ivUser);
+
+        emailUser = extras.getString("EmailUser");
+        idUser = extras.getInt("IdUser");
     }
 
     private void setupDrawerAndToggle() {
@@ -248,7 +268,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected DrawerLayout getDrawer() {
         return drawer;
     }
-
 
 
 }
