@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">BankMePoupe!</string>
+    <!-- Nav menu -->
+    <string name="nav_home">Início</string>
+    <string name="nav_extract">Extrato</string>
+    <string name="nav_transfer">Transferência</string>
+    <string name="nav_logout">Sair</string>
+    <string name="nav_name_user">Nome Cliente</string>
+    <string name="navigation_drawer_open">Abrir Menu</string>
+    <string name="navigation_drawer_close">Fechar Menu</string>
+
+    <!-- Strings Login -->
+    <string name="hint_email">Email</string>
+    <string name="email">Email</string>
+    <string name="hint_password">Senha</string>
+    <string name="btn_forgot_password">Esqueceu sua senha?</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="msg_email_fail">Email e/ou senha não coincidem</string>
+
+    <!-- bank statement-->
+    <string name="value_available">Saldo atual disponível</string>
+    <string name="real">R$:</string>
+    <string name="statement_msg">Extrato do ultimo mês</string>
+
+    <!-- home -->
+    <string name="balance">Saldo em conta</string>
+    <string name="value_example"></string>
+    <string name="update_balance">Atualizar saldo</string>
+    <string name="application_msg">Investimentos</string>
+    <string name="bank_msg">Consulte sua carteira</string>
+    <string name="financing">Financiamento</string>
+    <string name="financing_msg">Confira oportunidades</string>
+
+    <!-- transfer -->
+    <string name="balance_available_transfer">Saldo disponível para tranferência R$:</string>
+    <string name="to_send">Para:</string>
+    <string name="email_receiver">Email do destinatário</string>
+    <string name="btn_transfer">Transferir</string>
+
+    <!--Global -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
