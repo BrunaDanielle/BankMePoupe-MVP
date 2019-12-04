@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.contacorrenteadm.R;
 import com.example.contacorrenteadm.model.BankStatement;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class BankStatementAdapter extends RecyclerView.Adapter<BankStatementAdapter.ViewHolder> {
 
@@ -28,16 +31,18 @@ public class BankStatementAdapter extends RecyclerView.Adapter<BankStatementAdap
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View noteView = inflater.inflate(R.layout.item_bank_statement, parent, false);
-
         return new ViewHolder(noteView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BankStatement bank = bankStatements.get(position);
-        holder.idUserTo.setText(bank.id_to);
-        holder.valueSent.setText((int) bank.valueTransfer);
-        holder.dateSent.setText((CharSequence) bank.dateTransaction);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        String date = formatter.format(bank.dateTransaction);
+        holder.dateSent.setText(date);
+        holder.idUserTo.setText(String.valueOf(bank.id_to));
+        holder.valueSent.setText(String.valueOf(bank.valueTransfer));
     }
 
     public void replaceData(List<BankStatement> notes) {
@@ -55,21 +60,20 @@ public class BankStatementAdapter extends RecyclerView.Adapter<BankStatementAdap
     }
 
     public BankStatement getItem(int position) {
-
         return bankStatements.get(position);
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView idUserTo;
+        public TextView idUserFrom;
         public TextView valueSent;
         public TextView dateSent;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
-            idUserTo = itemView.findViewById(R.id.name_client_sent);
+            idUserTo = itemView.findViewById(R.id.id_to);
+            idUserFrom = itemView.findViewById(R.id.id_from);
             valueSent = itemView.findViewById(R.id.value_sent);
             dateSent = itemView.findViewById(R.id.date_sent);
         }

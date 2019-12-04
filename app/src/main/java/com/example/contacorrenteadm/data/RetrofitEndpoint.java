@@ -1,9 +1,12 @@
 package com.example.contacorrenteadm.data;
 
 import com.example.contacorrenteadm.model.AuthenticationTransfer;
+import com.example.contacorrenteadm.model.BankStatement;
 import com.example.contacorrenteadm.model.Login;
 import com.example.contacorrenteadm.model.Client;
-import com.example.contacorrenteadm.model.BankStatementResult;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -25,5 +28,5 @@ public interface RetrofitEndpoint {
 
     @FormUrlEncoded
     @POST("./get-bank-statement")
-    Call<BankStatementResult> bankStatement(@Field("id_user") Integer idUser);
+    Call<List<BankStatement>> bankStatement(@Field("id_user") int idUser);
 }

@@ -20,6 +20,11 @@ public class HomePresenter implements HomeContract.UserActionHome {
             public void onLoaded(Client clientData) {
                 viewHome.getDataUser(clientData);
             }
+
+            @Override
+            public void onError() {
+                viewHome.onError();
+            }
         });
     }
 }

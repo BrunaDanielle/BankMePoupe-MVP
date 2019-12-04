@@ -32,11 +32,13 @@
     <string name="financing_msg">Confira oportunidades</string>
 
     <!-- transfer -->
-    <string name="balance_available_transfer">Saldo disponível para tranferência R$:</string>
+    <string name="balance_available_transfer">Valor que deseja transferir: </string>
     <string name="to_send">Para:</string>
     <string name="email_receiver">Email do destinatário</string>
     <string name="btn_transfer">Transferir</string>
 
     <!--Global -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_conection">Sem conexão com a internet</string>
+    <string name="dataUserErrorMsg">Dados incorretos</string>
 </resources>

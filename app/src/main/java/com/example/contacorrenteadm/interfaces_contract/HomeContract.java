@@ -5,6 +5,7 @@ import com.example.contacorrenteadm.model.Client;
 public class HomeContract {
     public interface ViewHome {
         void getDataUser(Client client);
+        void onError();
     }
 
     public interface UserActionHome{

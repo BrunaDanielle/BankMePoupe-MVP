@@ -1,5 +1,6 @@
 package com.example.contacorrenteadm.base;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -16,7 +17,7 @@ public class AddFragmentHandler {
         this.fragmentManager = fragmentManager;
     }
 
-    public void add(BaseFragment fragment) {
+    public void add(BaseFragment fragment, String data, int idUser, double balance) {
         //don't add a fragment of the same type on top of itself.
         BaseFragment currentFragment = getCurrentFragment();
         if (currentFragment != null) {
@@ -28,6 +29,13 @@ public class AddFragmentHandler {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getTitle());
         fragmentTransaction.addToBackStack(fragment.getTitle());
+        if(data != null || idUser > 0 || balance >0){
+            Bundle bundle = new Bundle();
+            bundle.putString("EmailSent", data);
+            bundle.putInt("idUserSent", idUser);
+            bundle.putDouble("getBalance", balance);
+            fragment.setArguments(bundle);
+        }
         fragmentTransaction.commit();
     }
 

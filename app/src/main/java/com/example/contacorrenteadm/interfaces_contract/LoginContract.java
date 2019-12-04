@@ -6,6 +6,7 @@ public class LoginContract {
     public interface ViewLogin {
         void showLogin(boolean authenticationAPI);
         void getDataUser(Client client);
+        void onError();
     }
     public interface UserActionLogin {
         void putDataLogin(String email, String password);

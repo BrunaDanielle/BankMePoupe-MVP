@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.contacorrenteadm.R;
 import com.example.contacorrenteadm.base.BaseFragment;
@@ -24,12 +25,9 @@ import java.util.Locale;
 public class HomeFragment extends BaseFragment implements HomeContract.ViewHome {
     private TextView tvBalance;
     private HomeContract.UserActionHome actionHome;
-    private Button btnBankStatement;
-    private Button btnTransfer;
-    private Button btnLogout;
-    private Button btnUpdateBalance;
     private String emailUser;
     private Integer idUser;
+    private double balance;
 
     public static BaseFragment newInstance() {
         return new HomeFragment();
@@ -45,33 +43,32 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        if (getArguments() != null) {
-            emailUser = getArguments().getString("emailUser");
-            idUser = getArguments().getInt("idUser");
-        }
-
         tvBalance = root.findViewById(R.id.value_available);
 
-        actionHome.putDataUser("bruna.silva@evosystems.com.br");
+        if (getArguments() != null) {
+            emailUser = getArguments().getString("EmailSent");
+            idUser = getArguments().getInt("idUserSent");
+            balance = getArguments().getDouble("getBalance");
+        }
+        add(HomeFragment.newInstance(), emailUser,idUser, balance);
 
-        add(HomeFragment.newInstance());
-
-        btnBankStatement = root.findViewById(R.id.btn_extract);
-        btnTransfer = root.findViewById(R.id.btn_transfer);
-        btnLogout = root.findViewById(R.id.btn_logout);
-        btnUpdateBalance = root.findViewById(R.id.refreshValue);
+        actionHome.putDataUser(this.emailUser);
+        Button btnBankStatement = root.findViewById(R.id.btn_extract);
+        Button btnTransfer = root.findViewById(R.id.btn_transfer);
+        Button btnLogout = root.findViewById(R.id.btn_logout);
+        Button btnUpdateBalance = root.findViewById(R.id.refreshValue);
 
         btnBankStatement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add(BankStatementFragment.newInstance());
+                add(BankStatementFragment.newInstance(),null,idUser,balance);
             }
         });
 
         btnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add(TransferFragment.newInstance());
+                add(TransferFragment.newInstance(), null,idUser, balance);
             }
         });
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +83,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
         btnUpdateBalance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                actionHome.putDataUser("bruna.silva@evosystems.com.br");
+                actionHome.putDataUser(emailUser);
             }
         });
 
@@ -101,5 +98,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
     @Override
     public void getDataUser(Client client) {
         tvBalance.setText(String.format(client.balance.toString(), Locale.getDefault()));
+    }
+
+    @Override
+    public void onError() {
+        Toast.makeText(getContext(),getContext().getString(R.string.dataUserErrorMsg),Toast.LENGTH_SHORT).show();
     }
 }

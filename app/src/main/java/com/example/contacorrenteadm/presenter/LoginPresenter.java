@@ -21,6 +21,11 @@ public class LoginPresenter implements LoginContract.UserActionLogin {
             public void onLoaded(Login clientData) {
                 viewLogin.showLogin(clientData.status);
             }
+
+            @Override
+            public void onError() {
+                viewLogin.onError();
+            }
         });
     }
 
@@ -31,6 +36,11 @@ public class LoginPresenter implements LoginContract.UserActionLogin {
             @Override
             public void onLoaded(Client clientData) {
                 viewLogin.getDataUser(clientData);
+            }
+
+            @Override
+            public void onError() {
+                viewLogin.onError();
             }
         });
     }

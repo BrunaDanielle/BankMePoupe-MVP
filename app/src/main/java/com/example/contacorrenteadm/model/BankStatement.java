@@ -6,13 +6,13 @@ import java.util.Date;
 
 public class BankStatement {
     @SerializedName("id")
-    public Integer idTransaction;
+    public int idTransaction;
 
     @SerializedName("id_from")
-    public Integer id_from;
+    public int id_from;
 
     @SerializedName("id_to")
-    public Integer id_to;
+    public int id_to;
 
     @SerializedName("value")
     public double valueTransfer;

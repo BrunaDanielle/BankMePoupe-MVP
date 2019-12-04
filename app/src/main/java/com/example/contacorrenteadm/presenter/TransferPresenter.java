@@ -20,6 +20,11 @@ public class TransferPresenter implements TransferContract.UserActionTransfer {
             public void onLoaded(AuthenticationTransfer clientData) {
                 viewTransfer.showTransfer(clientData.status);
             }
+
+            @Override
+            public void onError() {
+                viewTransfer.onError();
+            }
         });
     }
 
@@ -29,6 +34,11 @@ public class TransferPresenter implements TransferContract.UserActionTransfer {
             @Override
             public void onLoaded(Client clientData) {
                 viewTransfer.getIdUser(clientData);
+            }
+
+            @Override
+            public void onError() {
+                viewTransfer.onError();
             }
         });
     }

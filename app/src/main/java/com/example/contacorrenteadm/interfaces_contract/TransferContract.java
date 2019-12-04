@@ -7,6 +7,7 @@ public class TransferContract extends HomeContract {
     public interface ViewTransfer extends BackButtonSupportFragment {
         void showTransfer(Boolean authentication);
         void getIdUser(Client client);
+        void onError();
     }
 
     public interface UserActionTransfer {

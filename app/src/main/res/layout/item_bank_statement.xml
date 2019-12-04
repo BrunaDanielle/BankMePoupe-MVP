@@ -19,26 +19,27 @@
 
             <TextView
                 android:id="@+id/name_client_sent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="215dp"
-                android:layout_marginRight="215dp"
-                android:text="Fulano de tal"
+                android:layout_width="103dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="12dp"
+                android:text="Transferido do:"
                 android:textColor="@color/colorAccent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/id_from"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/view4"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/date_sent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="91dp"
+                android:layout_height="62dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginLeft="7dp"
+                android:inputType="textMultiLine"
                 android:text="20/08/2019"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/view4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,9 +47,7 @@
                 android:id="@+id/value_sent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="16dp"
                 android:text="100,00"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20dp"
@@ -59,8 +58,8 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:layout_marginLeft="7dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:text="R$:"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintBaseline_toBaselineOf="@+id/value_sent"
@@ -68,17 +67,44 @@
 
             <View
                 android:id="@+id/view4"
-                android:layout_width="0dp"
-                android:layout_height="85dp"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginStart="93dp"
-                android:layout_marginLeft="93dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginStart="116dp"
+                android:layout_marginLeft="116dp"
                 android:background="@color/colorAccent"
-                app:layout_constraintBottom_toTopOf="@+id/value_sent"
-                app:layout_constraintEnd_toStartOf="@+id/name_client_sent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/value_sent" />
+                tools:layout_editor_absoluteY="0dp" />
+
+            <TextView
+                android:id="@+id/id_from"
+                android:layout_width="58dp"
+                android:layout_height="21dp"
+                android:text="TextView"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@+id/name_client_sent"
+                app:layout_constraintEnd_toStartOf="@+id/textView20"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="39dp"
+                android:layout_height="20dp"
+                android:text="Para: "
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@+id/id_from"
+                app:layout_constraintEnd_toStartOf="@+id/id_to" />
+
+            <TextView
+                android:id="@+id/id_to"
+                android:layout_width="44dp"
+                android:layout_height="21dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:text="TextView"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@+id/textView20"
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -35,9 +35,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private ImageView ivUser;
     private TextView tvNameUser;
-    private NavigationView navigationView;
+
     private String emailUser;
     private Integer idUser;
+    private double balance;
 
 
     @Override
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout);
 
-        navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -69,19 +70,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if (savedInstanceState == null) {
-            add(HomeFragment.newInstance());
-
-            Bundle bundle = new Bundle();
-            bundle.putString("emailUser",emailUser);
-            bundle.putInt("idUser",idUser);
-            HomeFragment home = new HomeFragment();
-            home.setArguments(bundle);
-
+            add(HomeFragment.newInstance(),emailUser, idUser, balance);
             navigationView.setCheckedItem(R.id.nav_home);
         }
         setupDrawerAndToggle();
-
-
     }
 
     private void populateDetails(Bundle extras) {
@@ -94,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         emailUser = extras.getString("EmailUser");
         idUser = extras.getInt("IdUser");
+        balance = extras.getDouble("Balance");
     }
 
     private void setupDrawerAndToggle() {
@@ -130,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 showBankTransferFragment();
                 break;
             case R.id.nav_logout:
-                Toast.makeText(this, "Saindo da conta...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -141,15 +133,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showBankStatementFragment() {
-        add(BankStatementFragment.newInstance());
+        add(BankStatementFragment.newInstance(),null,idUser,balance);
     }
 
     private void showHomeFragment() {
-        add(HomeFragment.newInstance());
+        add(HomeFragment.newInstance(), emailUser, idUser,balance);
     }
 
     private void showBankTransferFragment() {
-        add(TransferFragment.newInstance());
+        add(TransferFragment.newInstance(), null, idUser,balance);
     }
 
     private final View.OnClickListener navigationBackPressListener = new View.OnClickListener() {
@@ -177,10 +169,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         if (fragmentManager.getBackStackEntryCount() > 1) {
             drawerToggle.setDrawerIndicatorEnabled(false);
-            drawerToggle.setToolbarNavigationClickListener(navigationBackPressListener); //pop backstack
+            drawerToggle.setToolbarNavigationClickListener(navigationBackPressListener);
         } else {
             drawerToggle.setDrawerIndicatorEnabled(true);
-            drawerToggle.setToolbarNavigationClickListener(drawerToggle.getToolbarNavigationClickListener()); //open nav menu drawer
+            drawerToggle.setToolbarNavigationClickListener(drawerToggle.getToolbarNavigationClickListener());
         }
     }
 
@@ -216,8 +208,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onDestroy();
     }
 
-    protected void add(BaseFragment fragment) {
-        fragmentHandler.add(fragment);
+    protected void add(BaseFragment fragment, String email, int value, double balance) {
+        fragmentHandler.add(fragment,email, value, balance);
     }
 
     @Override
@@ -268,6 +260,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected DrawerLayout getDrawer() {
         return drawer;
     }
-
-
 }

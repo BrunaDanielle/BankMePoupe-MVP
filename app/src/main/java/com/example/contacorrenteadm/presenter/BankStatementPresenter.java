@@ -2,7 +2,8 @@ package com.example.contacorrenteadm.presenter;
 
 import com.example.contacorrenteadm.data.BankServiceAPI;
 import com.example.contacorrenteadm.interfaces_contract.BankStatementContract;
-import com.example.contacorrenteadm.model.BankStatementResult;
+import com.example.contacorrenteadm.model.BankStatement;
+import java.util.List;
 
 public class BankStatementPresenter implements BankStatementContract.UserActionBankStatement {
 
@@ -16,10 +17,15 @@ public class BankStatementPresenter implements BankStatementContract.UserActionB
 
     @Override
     public void openBankStatement(Integer idUser) {
-        mApi.getBankService(idUser, new BankServiceAPI.BankServiceCallBack<BankStatementResult>() {
+        mApi.getBankService(idUser, new BankServiceAPI.BankServiceCallBack<List<BankStatement>>() {
             @Override
-            public void onLoaded(BankStatementResult clientData) {
-                viewBankStatement.showBankStatement(clientData.bankStatementList);
+            public void onLoaded(List<BankStatement> clientData) {
+                viewBankStatement.showBankStatement(clientData);
+            }
+
+            @Override
+            public void onError() {
+                viewBankStatement.onError();
             }
         });
     }

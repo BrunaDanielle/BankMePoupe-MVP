@@ -34,24 +34,23 @@
         android:textColor="@color/colorAccent"
         android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toStartOf="@+id/saldoDisponivel"
+        app:layout_constraintEnd_toStartOf="@+id/balance"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/saldoDisponivel"
-        android:layout_width="0dp"
-        android:layout_height="26dp"
-        android:layout_marginEnd="289dp"
-        android:layout_marginRight="289dp"
+        android:id="@+id/balance"
+        android:layout_width="140dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
         android:paddingRight="5dp"
         android:text="300,00"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <View
         android:id="@+id/view"

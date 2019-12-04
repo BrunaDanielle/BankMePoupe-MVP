@@ -1,9 +1,11 @@
 package com.example.contacorrenteadm.data;
 
 import com.example.contacorrenteadm.model.AuthenticationTransfer;
+import com.example.contacorrenteadm.model.BankStatement;
 import com.example.contacorrenteadm.model.Login;
 import com.example.contacorrenteadm.model.Client;
-import com.example.contacorrenteadm.model.BankStatementResult;
+
+import java.util.List;
 
 import retrofit2.http.POST;
 
@@ -11,6 +13,7 @@ public interface BankServiceAPI {
 
     interface BankServiceCallBack<T> {
         void onLoaded(T clientData);
+        void onError();
     }
 
     @POST("./check-login")
@@ -23,5 +26,5 @@ public interface BankServiceAPI {
     void getTransfer(Integer idUserFrom, Integer idUserTo, Double valueTranfer, BankServiceCallBack<AuthenticationTransfer> callBack);
 
     @POST("./get-bank-statement")
-    void getBankService(Integer idUser, BankServiceCallBack<BankStatementResult> callBack);
+    void getBankService(Integer idUser, BankServiceCallBack<List<BankStatement>> callBack);
 }

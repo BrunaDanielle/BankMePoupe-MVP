@@ -61,7 +61,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         i.putExtra("PhotoUser",client.photoProfileClient);
         i.putExtra("EmailUser",client.emailClient);
         i.putExtra("IdUser",client.id);
+        i.putExtra("Balance",client.balance);
         startActivity(i);
+    }
 
+    @Override
+    public void onError() {
+        Toast.makeText(this,this.getString(R.string.msg_email_fail),Toast.LENGTH_SHORT).show();
     }
 }

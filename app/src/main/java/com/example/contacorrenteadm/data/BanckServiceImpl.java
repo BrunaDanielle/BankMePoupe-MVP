@@ -1,16 +1,21 @@
 package com.example.contacorrenteadm.data;
 
+import android.util.Log;
+
 import com.example.contacorrenteadm.model.AuthenticationTransfer;
+import com.example.contacorrenteadm.model.BankStatement;
+import com.example.contacorrenteadm.model.BankStatementResult;
 import com.example.contacorrenteadm.model.Login;
 import com.example.contacorrenteadm.model.Client;
-import com.example.contacorrenteadm.model.BankStatementResult;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BanckServiceImpl implements BankServiceAPI {
-    RetrofitEndpoint mRetrofit;
+    private RetrofitEndpoint mRetrofit;
 
     public BanckServiceImpl() {
         mRetrofit = RetrofitClient.getClient().create(RetrofitEndpoint.class);
@@ -34,6 +39,8 @@ public class BanckServiceImpl implements BankServiceAPI {
 
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
+                Log.w("getLogin", t);
+                callBack.onError();
             }
         });
     }
@@ -55,13 +62,15 @@ public class BanckServiceImpl implements BankServiceAPI {
 
             @Override
             public void onFailure(Call<Client> call, Throwable t) {
+                callBack.onError();
+                Log.w("getUser", t);
             }
         });
     }
 
     @Override
     public void getTransfer(Integer idUserFrom, Integer idUserTo, Double valueTranfer, final BankServiceCallBack<AuthenticationTransfer> callBack) {
-        Call<AuthenticationTransfer> callTransfer = mRetrofit.transferCheck(idUserFrom,idUserTo,valueTranfer);
+        Call<AuthenticationTransfer> callTransfer = mRetrofit.transferCheck(idUserFrom, idUserTo, valueTranfer);
         callTransfer.enqueue(new Callback<AuthenticationTransfer>() {
             public void onResponse(Call<AuthenticationTransfer> call, Response<AuthenticationTransfer> response) {
                 try {
@@ -76,18 +85,21 @@ public class BanckServiceImpl implements BankServiceAPI {
 
             @Override
             public void onFailure(Call<AuthenticationTransfer> call, Throwable t) {
+                Log.w("getTransfer", t);
+                callBack.onError();
             }
         });
     }
 
     @Override
-    public void getBankService(Integer idUser, final BankServiceCallBack<BankStatementResult> callBack) {
-        Call<BankStatementResult> callExtract = mRetrofit.bankStatement(idUser);
-        callExtract.enqueue(new Callback<BankStatementResult>() {
-            public void onResponse(Call<BankStatementResult> call, Response<BankStatementResult> response) {
+    public void getBankService(Integer idUser, final BankServiceCallBack<List<BankStatement>> callBack) {
+        Call<List<BankStatement>> callExtract = mRetrofit.bankStatement(idUser);
+        callExtract.enqueue(new Callback<List<BankStatement>>() {
+            @Override
+            public void onResponse(Call<List<BankStatement>> call, Response<List<BankStatement>> response) {
                 try {
                     if (response.code() == 200) {
-                        BankStatementResult bankStatementResult = response.body();
+                        List<BankStatement> bankStatementResult = response.body();
                         callBack.onLoaded(bankStatementResult);
                     }
                 } catch (Exception e) {
@@ -96,7 +108,9 @@ public class BanckServiceImpl implements BankServiceAPI {
             }
 
             @Override
-            public void onFailure(Call<BankStatementResult> call, Throwable t) {
+            public void onFailure(Call<List<BankStatement>> call, Throwable t) {
+                Log.w("getBankService", t);
+                callBack.onError();
             }
         });
     }

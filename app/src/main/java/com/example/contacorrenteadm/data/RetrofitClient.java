@@ -3,6 +3,8 @@ package com.example.contacorrenteadm.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Date;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -11,6 +13,7 @@ public class RetrofitClient {
     private static Retrofit retrofit = null;
 
     private static Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Date.class, new DateDeserializer())
             .create();
 
     public static Retrofit getClient(){

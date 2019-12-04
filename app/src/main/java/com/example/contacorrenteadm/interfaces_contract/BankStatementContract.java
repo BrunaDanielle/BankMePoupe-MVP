@@ -8,6 +8,7 @@ import java.util.List;
 public class BankStatementContract {
     public interface ViewBankStatement  extends BackButtonSupportFragment  {
         void showBankStatement(List<BankStatement> bankStatement);
+        void onError();
     }
 
     public interface UserActionBankStatement{
