@@ -70,8 +70,8 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginStart="116dp"
-                android:layout_marginLeft="116dp"
+                android:layout_marginStart="96dp"
+                android:layout_marginLeft="96dp"
                 android:background="@color/colorAccent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="0dp" />

@@ -95,7 +95,7 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
             alertDialogBuilder.setTitle("Comprovante");
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
-        }else{
+        } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
             alertDialogBuilder.setPositiveButton("Okay", (DialogInterface.OnClickListener) OnClickListener);
             alertDialogBuilder.setMessage("Email inválido!");

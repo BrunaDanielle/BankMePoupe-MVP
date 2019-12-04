@@ -1,7 +1,10 @@
 package com.example.contacorrenteadm.data;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.util.Log;
 
+import com.example.contacorrenteadm.MainActivity;
 import com.example.contacorrenteadm.model.AuthenticationTransfer;
 import com.example.contacorrenteadm.model.BankStatement;
 import com.example.contacorrenteadm.model.BankStatementResult;

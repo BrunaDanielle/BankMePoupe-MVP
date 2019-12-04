@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.contacorrenteadm.R;
 import com.example.contacorrenteadm.adapter.BankStatementAdapter;
 import com.example.contacorrenteadm.base.BaseFragment;
@@ -18,9 +20,12 @@ import com.example.contacorrenteadm.data.BanckServiceImpl;
 import com.example.contacorrenteadm.interfaces_contract.BankStatementContract;
 import com.example.contacorrenteadm.model.BankStatement;
 import com.example.contacorrenteadm.presenter.BankStatementPresenter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import static android.view.View.VISIBLE;
 
 
 public class BankStatementFragment extends BaseFragment implements BankStatementContract.ViewBankStatement {
@@ -84,6 +89,6 @@ public class BankStatementFragment extends BaseFragment implements BankStatement
 
     @Override
     public void onError() {
-        Toast.makeText(getContext(),getContext().getString(R.string.dataUserErrorMsg),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getContext().getString(R.string.dataUserErrorMsg), Toast.LENGTH_SHORT).show();
     }
 }

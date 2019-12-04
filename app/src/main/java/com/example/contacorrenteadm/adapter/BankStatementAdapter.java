@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.contacorrenteadm.R;
 import com.example.contacorrenteadm.model.BankStatement;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-public class BankStatementAdapter extends RecyclerView.Adapter<BankStatementAdapter.ViewHolder> {
+public class BankStatementAdapter extends RecyclerView.Adapter<BankStatementAdapter.ViewHolder>{
 
     private List<BankStatement> bankStatements;
 
@@ -38,9 +38,17 @@ public class BankStatementAdapter extends RecyclerView.Adapter<BankStatementAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BankStatement bank = bankStatements.get(position);
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-        String date = formatter.format(bank.dateTransaction);
-        holder.dateSent.setText(date);
+        Date dt = new Date();
+        try {
+          dt = bank.convertDate(bank.dateTransaction);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String dtString = formatter.format(dt);
+
+        holder.dateSent.setText(dtString);
+        holder.idUserFrom.setText(String.valueOf(bank.id_from));
         holder.idUserTo.setText(String.valueOf(bank.id_to));
         holder.valueSent.setText(String.valueOf(bank.valueTransfer));
     }

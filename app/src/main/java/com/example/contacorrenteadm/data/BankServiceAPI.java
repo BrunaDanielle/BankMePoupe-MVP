@@ -15,7 +15,6 @@ public interface BankServiceAPI {
         void onLoaded(T clientData);
         void onError();
     }
-
     @POST("./check-login")
     void getLogin(String email, String password, BankServiceCallBack<Login> callBack);
 
