@@ -215,22 +215,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         if (sendBackPressToDrawer()) {
-            //the drawer consumed the backpress
             return;
         }
 
         if (sendBackPressToFragmentOnTop()) {
-            // fragment on top consumed the back press
             return;
         }
 
-        //let the android system handle the back press, usually by popping the fragment
         super.onBackPressed();
-
-        //close the activity if back is pressed on the root fragment
-        if (fragmentManager.getBackStackEntryCount() == 0) {
-            finish();
-        }
     }
 
     private boolean sendBackPressToDrawer() {
