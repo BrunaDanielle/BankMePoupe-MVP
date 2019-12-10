@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView tvNameUser;
 
     private String emailUser;
+    private String nameUser;
     private Integer idUser;
     private double balance;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void populateDetails(Bundle extras) {
         tvNameUser.setText(extras.getString("NameUser"));
+        nameUser = extras.getString("NameUser");
 
         Picasso.with(this)
                 .load(extras.getString("PhotoUser"))
@@ -141,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showBankTransferFragment() {
-        add(TransferFragment.newInstance(), null, idUser,balance);
+        add(TransferFragment.newInstance(),nameUser, idUser, 0);
     }
 
     private final View.OnClickListener navigationBackPressListener = new View.OnClickListener() {

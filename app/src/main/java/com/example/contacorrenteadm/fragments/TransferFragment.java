@@ -20,10 +20,12 @@ import com.example.contacorrenteadm.R;
 import com.example.contacorrenteadm.base.BackButtonSupportFragment;
 import com.example.contacorrenteadm.base.BaseFragment;
 import com.example.contacorrenteadm.data.BanckServiceImpl;
+import com.example.contacorrenteadm.interfaces_contract.TransferConformationContract;
 import com.example.contacorrenteadm.interfaces_contract.TransferContract;
 import com.example.contacorrenteadm.model.AuthenticationTransfer;
 import com.example.contacorrenteadm.model.Client;
 import com.example.contacorrenteadm.model.Login;
+import com.example.contacorrenteadm.presenter.TransferConfirmationPresenter;
 import com.example.contacorrenteadm.presenter.TransferPresenter;
 
 import java.util.Locale;
@@ -38,6 +40,9 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
     private TransferContract.UserActionTransfer userActionTransfer;
     private Object OnClickListener;
     private int idUser;
+    private String nameUser;
+    private String nameClient;
+    TransferConformationContract.appAction appAction;
 
     public static BaseFragment newInstance() {
         return new TransferFragment();
@@ -47,6 +52,7 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userActionTransfer = new TransferPresenter(new BanckServiceImpl(), this);
+        appAction = new TransferConfirmationPresenter(this, new BanckServiceImpl());
     }
 
     @Override
@@ -55,6 +61,7 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
         View root = inflater.inflate(R.layout.fragment_transfer, container, false);
         if (getArguments() != null) {
             idUser = getArguments().getInt("idUserSent");
+            nameUser = getArguments().getString("EmailSent");
         }
         valueToSend = root.findViewById(R.id.value_to_send);
         emailUserTo = root.findViewById(R.id.email_receiver);
@@ -93,6 +100,8 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
             emailUserTo.setText(" ");
+            add(TransferConfirmationFragment.newInstance(), null, 0, 0);
+
         } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
             alertDialogBuilder.setPositiveButton("Okay", (DialogInterface.OnClickListener) OnClickListener);
@@ -106,9 +115,10 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
 
     @Override
     public void getIdUser(Client client) {
-        if(idUser != client.id){
+        if (idUser != client.id) {
+            appAction.sendDataUser(client.nameClient, nameUser,Integer.parseInt(valueToSend.getText().toString()));
             userActionTransfer.doTransfer(idUser, client.id, Double.parseDouble(valueToSend.getText().toString()));
-        }else{
+        } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
             alertDialogBuilder.setPositiveButton("Okay", (DialogInterface.OnClickListener) OnClickListener);
             alertDialogBuilder.setMessage("Impossível transferir para a mesma conta");
@@ -117,7 +127,6 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
             alertDialog.show();
             emailUserTo.setText(" ");
         }
-
     }
 
     @Override
