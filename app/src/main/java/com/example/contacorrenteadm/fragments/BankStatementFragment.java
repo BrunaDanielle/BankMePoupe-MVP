@@ -33,6 +33,8 @@ public class BankStatementFragment extends BaseFragment implements BankStatement
     private boolean consumingBackPress = true;
     private BankStatementContract.UserActionBankStatement userActionBankStatement;
     private int idUser;
+    private ProgressBar progressBarStatement;
+    RecyclerView recyclerView;
 
     public static BaseFragment newInstance() {
         return new BankStatementFragment();
@@ -49,7 +51,7 @@ public class BankStatementFragment extends BaseFragment implements BankStatement
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_bank_statement, container, false);
-        RecyclerView recyclerView = root.findViewById(R.id.rv_extract);
+        recyclerView = root.findViewById(R.id.rv_extract);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(bankStatementAdapter);
@@ -58,14 +60,46 @@ public class BankStatementFragment extends BaseFragment implements BankStatement
                 new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
         TextView balanceAvailable = root.findViewById(R.id.balance);
+        progressBarStatement = root.findViewById(R.id.progressBarStatement);
         if (getArguments() != null) {
             double balance = getArguments().getDouble("getBalance");
             idUser = getArguments().getInt("idUserSent");
             balanceAvailable.setText(String.valueOf(balance));
         }
-        userActionBankStatement.openBankStatement(idUser);
 
+        userActionBankStatement.openBankStatement(idUser);
+        showBankStatementProgressBar(root);
         return root;
+    }
+
+    public void showBankStatementProgressBar(View view){
+        recyclerView.setVisibility(View.GONE);
+        progressBarStatement.setVisibility(View.VISIBLE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final int progress = 100;
+                for (int i = 0; i <= progress; i++) {
+                    final int progressLoading = i;
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (progressLoading == progress) {
+                                recyclerView.setVisibility(VISIBLE);
+                                progressBarStatement.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
