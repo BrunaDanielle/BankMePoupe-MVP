@@ -35,10 +35,8 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
     private boolean consumingBackPress = true;
     private EditText valueToSend;
     private EditText emailUserTo;
-    private TextView valueBalance;
     private TransferContract.UserActionTransfer userActionTransfer;
     private Object OnClickListener;
-    private Button btnTransfer;
     private int idUser;
 
     public static BaseFragment newInstance() {
@@ -60,8 +58,7 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
         }
         valueToSend = root.findViewById(R.id.value_to_send);
         emailUserTo = root.findViewById(R.id.email_receiver);
-        btnTransfer = root.findViewById(R.id.buttonTransfer);
-        valueBalance = root.findViewById(R.id.value_available);
+        Button btnTransfer = root.findViewById(R.id.buttonTransfer);
 
         btnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +92,7 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
             alertDialogBuilder.setTitle("Comprovante");
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
+            emailUserTo.setText(" ");
         } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
             alertDialogBuilder.setPositiveButton("Okay", (DialogInterface.OnClickListener) OnClickListener);
@@ -102,12 +100,24 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
             alertDialogBuilder.setTitle("Erro");
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
+            emailUserTo.setText(" ");
         }
     }
 
     @Override
     public void getIdUser(Client client) {
-        userActionTransfer.doTransfer(idUser, client.id, Double.parseDouble(valueToSend.getText().toString()));
+        if(idUser != client.id){
+            userActionTransfer.doTransfer(idUser, client.id, Double.parseDouble(valueToSend.getText().toString()));
+        }else{
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+            alertDialogBuilder.setPositiveButton("Okay", (DialogInterface.OnClickListener) OnClickListener);
+            alertDialogBuilder.setMessage("Impossível transferir para a mesma conta");
+            alertDialogBuilder.setTitle("Erro");
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            emailUserTo.setText(" ");
+        }
+
     }
 
     @Override
@@ -118,5 +128,6 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
         alertDialogBuilder.setTitle("Erro");
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+        emailUserTo.setText(" ");
     }
 }
