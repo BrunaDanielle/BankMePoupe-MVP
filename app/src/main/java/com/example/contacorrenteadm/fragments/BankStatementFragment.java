@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.contacorrenteadm.MainActivity;
 import com.example.contacorrenteadm.R;
 import com.example.contacorrenteadm.adapter.BankStatementAdapter;
 import com.example.contacorrenteadm.base.BaseFragment;
@@ -55,6 +56,8 @@ public class BankStatementFragment extends BaseFragment implements BankStatement
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(bankStatementAdapter);
+
+        ((MainActivity) getActivity()).lockDrawerLayout(true);
 
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

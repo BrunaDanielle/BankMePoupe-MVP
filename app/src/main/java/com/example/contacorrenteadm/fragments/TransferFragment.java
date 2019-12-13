@@ -13,15 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.contacorrenteadm.MainActivity;
 import com.example.contacorrenteadm.R;
-import com.example.contacorrenteadm.base.BackButtonSupportFragment;
 import com.example.contacorrenteadm.base.BaseFragment;
 import com.example.contacorrenteadm.data.BanckServiceImpl;
 import com.example.contacorrenteadm.interfaces_contract.TransferContract;
-import com.example.contacorrenteadm.model.AuthenticationTransfer;
+
 import com.example.contacorrenteadm.model.Client;
 import com.example.contacorrenteadm.model.Login;
 import com.example.contacorrenteadm.presenter.TransferPresenter;
@@ -56,6 +54,7 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
         if (getArguments() != null) {
             idUser = getArguments().getInt("idUserSent");
         }
+        ((MainActivity) getActivity()).lockDrawerLayout(true);
         valueToSend = root.findViewById(R.id.value_to_send);
         emailUserTo = root.findViewById(R.id.email_receiver);
         Button btnTransfer = root.findViewById(R.id.buttonTransfer);
