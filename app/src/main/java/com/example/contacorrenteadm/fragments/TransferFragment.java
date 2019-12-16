@@ -54,6 +54,7 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
         if (getArguments() != null) {
             idUser = getArguments().getInt("idUserSent");
         }
+        
         ((MainActivity) getActivity()).lockDrawerLayout(true);
         valueToSend = root.findViewById(R.id.value_to_send);
         emailUserTo = root.findViewById(R.id.email_receiver);
