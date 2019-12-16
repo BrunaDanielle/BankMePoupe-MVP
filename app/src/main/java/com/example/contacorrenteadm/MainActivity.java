@@ -74,6 +74,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         setupDrawerAndToggle();
     }
+    public void lockDrawerLayout(Boolean lock){
+        if (lock){
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }else {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
+    }
 
     private void populateDetails(Bundle extras) {
         tvNameUser.setText(extras.getString("NameUser"));

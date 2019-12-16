@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.contacorrenteadm.MainActivity;
 import com.example.contacorrenteadm.R;
 import com.example.contacorrenteadm.base.BaseFragment;
 import com.example.contacorrenteadm.data.BanckServiceImpl;
@@ -53,6 +55,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
             idUser = getArguments().getInt("idUserSent");
         }
         add(HomeFragment.newInstance(), idUser, balance,emailUser, null);
+
+        ((MainActivity) getActivity()).lockDrawerLayout(false);
 
         actionHome.putDataUser(this.emailUser);
         Button btnBankStatement = root.findViewById(R.id.btn_extract);

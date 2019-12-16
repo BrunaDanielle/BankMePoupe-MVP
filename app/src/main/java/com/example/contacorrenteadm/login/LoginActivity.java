@@ -57,6 +57,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void getDataUser(Client client) {
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         i.putExtra("NameUser",client.nameClient);
         i.putExtra("PhotoUser",client.photoProfileClient);
         i.putExtra("EmailUser",client.emailClient);
