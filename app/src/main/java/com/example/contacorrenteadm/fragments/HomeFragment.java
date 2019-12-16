@@ -30,6 +30,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
     private ProgressBar progressBar;
     private TextView balanceAccount;
     private TextView real;
+    private String nameUser;
 
     public static BaseFragment newInstance() {
         return new HomeFragment();
@@ -50,7 +51,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
         if (getArguments() != null) {
             emailUser = getArguments().getString("EmailSent");
             idUser = getArguments().getInt("idUserSent");
-            balance = getArguments().getDouble("getBalance");
         }
         add(HomeFragment.newInstance(), idUser, balance,emailUser, null);
 
@@ -74,7 +74,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
         btnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add(TransferFragment.newInstance(), idUser, balance, null,null);
+                add(TransferFragment.newInstance(), idUser, balance, nameUser,null);
             }
         });
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +144,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
     @Override
     public void getDataUser(Client client) {
         tvBalance.setText(String.format(client.balance.toString(), Locale.getDefault()));
+        balance =Double.parseDouble(tvBalance.getText().toString());
+        nameUser = client.nameClient;
     }
 
     @Override

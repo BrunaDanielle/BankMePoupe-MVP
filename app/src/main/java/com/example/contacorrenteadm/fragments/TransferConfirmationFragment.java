@@ -31,14 +31,17 @@ public class TransferConfirmationFragment extends BaseFragment implements Transf
         txtNameTo = root.findViewById(R.id.nameClientTo);
         txtValueSent = root.findViewById(R.id.valueSent);
 
+        if (getArguments() != null) {
+            txtNameFrom.setText(getArguments().getString("EmailSent"));
+            txtNameTo.setText(getArguments().getString("NameUser"));
+            txtValueSent.setText(String.valueOf(getArguments().getDouble("getBalance")));
+        }
+
         return root;
     }
 
     @Override
     public void getDataUser(String nameUserTo, String nameUserFrom, int value) {
-        txtNameFrom.setText(nameUserFrom);
-        txtNameTo.setText(nameUserTo);
-        txtValueSent.setText(String.valueOf(value));
     }
 
     @Override

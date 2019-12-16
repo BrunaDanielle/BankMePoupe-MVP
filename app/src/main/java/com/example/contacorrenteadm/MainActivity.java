@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if (savedInstanceState == null) {
-            add(HomeFragment.newInstance(),idUser, balance,emailUser, null);
+            add(HomeFragment.newInstance(),idUser, 0,emailUser, null);
             navigationView.setCheckedItem(R.id.nav_home);
         }
         setupDrawerAndToggle();
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showHomeFragment() {
-        add(HomeFragment.newInstance(),idUser,balance,emailUser, null);
+        add(HomeFragment.newInstance(),idUser,0,emailUser, null);
     }
 
     private void showBankTransferFragment() {
