@@ -22,8 +22,8 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract String getTitle();
 
-    protected void add(BaseFragment fragment, String email, int id, double balance) {
-        fragmentHandler.add(fragment, email,id, balance);
+    protected void add(BaseFragment fragment, int id, double balance, String email, String name) {
+        fragmentHandler.add(fragment,id, balance,email, name);
     }
 
 }

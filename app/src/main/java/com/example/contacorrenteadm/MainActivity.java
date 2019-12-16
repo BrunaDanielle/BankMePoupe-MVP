@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private ImageView ivUser;
     private TextView tvNameUser;
-
     private String emailUser;
     private String nameUser;
     private Integer idUser;
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if (savedInstanceState == null) {
-            add(HomeFragment.newInstance(),emailUser, idUser, balance);
+            add(HomeFragment.newInstance(),idUser, balance,emailUser, null);
             navigationView.setCheckedItem(R.id.nav_home);
         }
         setupDrawerAndToggle();
@@ -134,15 +133,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showBankStatementFragment() {
-        add(BankStatementFragment.newInstance(),null,idUser,balance);
+        add(BankStatementFragment.newInstance(),idUser,balance,null, null);
     }
 
     private void showHomeFragment() {
-        add(HomeFragment.newInstance(), emailUser, idUser,balance);
+        add(HomeFragment.newInstance(),idUser,balance,emailUser, null);
     }
 
     private void showBankTransferFragment() {
-        add(TransferFragment.newInstance(),nameUser, idUser, 0);
+        add(TransferFragment.newInstance(),idUser, 0,nameUser, null);
     }
 
     private final View.OnClickListener navigationBackPressListener = new View.OnClickListener() {
@@ -209,8 +208,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onDestroy();
     }
 
-    protected void add(BaseFragment fragment, String email, int value, double balance) {
-        fragmentHandler.add(fragment,email, value, balance);
+    protected void add(BaseFragment fragment, int value, double balance, String email, String name) {
+        fragmentHandler.add(fragment, value, balance, email, name);
     }
 
     @Override

@@ -2,35 +2,21 @@ package com.example.contacorrenteadm.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.contacorrenteadm.R;
-import com.example.contacorrenteadm.base.BackButtonSupportFragment;
 import com.example.contacorrenteadm.base.BaseFragment;
 import com.example.contacorrenteadm.data.BanckServiceImpl;
 import com.example.contacorrenteadm.interfaces_contract.TransferConformationContract;
 import com.example.contacorrenteadm.interfaces_contract.TransferContract;
-import com.example.contacorrenteadm.model.AuthenticationTransfer;
 import com.example.contacorrenteadm.model.Client;
-import com.example.contacorrenteadm.model.Login;
 import com.example.contacorrenteadm.presenter.TransferConfirmationPresenter;
 import com.example.contacorrenteadm.presenter.TransferPresenter;
-
-import java.util.Locale;
-
-import static android.content.DialogInterface.*;
 
 public class TransferFragment extends BaseFragment implements TransferContract.ViewTransfer {
 
@@ -52,7 +38,7 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userActionTransfer = new TransferPresenter(new BanckServiceImpl(), this);
-        appAction = new TransferConfirmationPresenter(this, new BanckServiceImpl());
+        appAction = new TransferConfirmationPresenter(this);
     }
 
     @Override
@@ -100,7 +86,8 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
             emailUserTo.setText(" ");
-            add(TransferConfirmationFragment.newInstance(), null, 0, 0);
+            add(TransferConfirmationFragment.newInstance(), 0,  Double.parseDouble(valueToSend.getText().toString()), nameUser,nameClient);
+            appAction.sendDataUser(nameClient, nameUser, Integer.parseInt(valueToSend.getText().toString()));
 
         } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
@@ -116,7 +103,7 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
     @Override
     public void getIdUser(Client client) {
         if (idUser != client.id) {
-            appAction.sendDataUser(client.nameClient, nameUser,Integer.parseInt(valueToSend.getText().toString()));
+            nameClient = client.nameClient;
             userActionTransfer.doTransfer(idUser, client.id, Double.parseDouble(valueToSend.getText().toString()));
         } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());

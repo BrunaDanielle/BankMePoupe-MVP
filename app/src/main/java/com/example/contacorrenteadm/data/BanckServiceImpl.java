@@ -1,18 +1,11 @@
 package com.example.contacorrenteadm.data;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.util.Log;
-
-import com.example.contacorrenteadm.MainActivity;
 import com.example.contacorrenteadm.model.AuthenticationTransfer;
 import com.example.contacorrenteadm.model.BankStatement;
-import com.example.contacorrenteadm.model.BankStatementResult;
 import com.example.contacorrenteadm.model.Login;
 import com.example.contacorrenteadm.model.Client;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

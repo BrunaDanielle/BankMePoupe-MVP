@@ -2,7 +2,9 @@ package com.example.contacorrenteadm.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +52,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
             idUser = getArguments().getInt("idUserSent");
             balance = getArguments().getDouble("getBalance");
         }
-        add(HomeFragment.newInstance(), emailUser, idUser, balance);
+        add(HomeFragment.newInstance(), idUser, balance,emailUser, null);
 
         actionHome.putDataUser(this.emailUser);
         Button btnBankStatement = root.findViewById(R.id.btn_extract);
@@ -65,14 +67,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
         btnBankStatement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add(BankStatementFragment.newInstance(), null, idUser, balance);
+                add(BankStatementFragment.newInstance(), idUser, balance, null,null);
             }
         });
 
         btnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add(TransferFragment.newInstance(), null, idUser, balance);
+                add(TransferFragment.newInstance(), idUser, balance, null,null);
             }
         });
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +82,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
-                getActivity().finish();
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
+
             }
         });
 
@@ -108,18 +113,19 @@ public class HomeFragment extends BaseFragment implements HomeContract.ViewHome 
                 for (int i = 0; i <= progress; i++) {
                     final int progressLoading = i;
 
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (progressLoading == progress) {
-                                progressBar.setVisibility(View.GONE);
-                                balanceAccount.setVisibility(View.VISIBLE);
-                                real.setVisibility(View.VISIBLE);
-                                tvBalance.setVisibility(View.VISIBLE);
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (progressLoading == progress) {
+                                    progressBar.setVisibility(View.GONE);
+                                    balanceAccount.setVisibility(View.VISIBLE);
+                                    real.setVisibility(View.VISIBLE);
+                                    tvBalance.setVisibility(View.VISIBLE);
+                                }
                             }
-                        }
-                    });
-
+                        });
+                    }
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException e) {
