@@ -4,10 +4,10 @@ import com.example.contacorrenteadm.base.BackButtonSupportFragment;
 
 public class TransferConformationContract {
     public interface ViewTransferConfirmation extends BackButtonSupportFragment {
-        void getDataUser(String nameUserTo,String nameUserFrom, int value);
+        void getDataUser();
     }
 
     public interface appAction{
-        void sendDataUser(String nameUserTo,String nameUserFrom, int value);
+        void sendDataUser();
     }
 }

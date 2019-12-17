@@ -28,7 +28,7 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
     private int idUser;
     private String nameUser;
     private String nameClient;
-    TransferConformationContract.appAction appAction;
+
 
     public static BaseFragment newInstance() {
         return new TransferFragment();
@@ -38,7 +38,6 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userActionTransfer = new TransferPresenter(new BanckServiceImpl(), this);
-        appAction = new TransferConfirmationPresenter(this);
     }
 
     @Override
@@ -87,7 +86,6 @@ public class TransferFragment extends BaseFragment implements TransferContract.V
             alertDialog.show();
             emailUserTo.setText(" ");
             add(TransferConfirmationFragment.newInstance(), 0,  Double.parseDouble(valueToSend.getText().toString()), nameUser,nameClient);
-            appAction.sendDataUser(nameClient, nameUser, Integer.parseInt(valueToSend.getText().toString()));
 
         } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());

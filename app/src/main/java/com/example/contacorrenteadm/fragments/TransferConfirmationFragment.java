@@ -5,14 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+
 import com.example.contacorrenteadm.R;
 import com.example.contacorrenteadm.base.BaseFragment;
 import com.example.contacorrenteadm.interfaces_contract.TransferConformationContract;
+import com.example.contacorrenteadm.presenter.TransferConfirmationPresenter;
 
 public class TransferConfirmationFragment extends BaseFragment implements TransferConformationContract.ViewTransferConfirmation {
     private TextView txtNameFrom;
     private TextView txtNameTo;
     private TextView txtValueSent;
+    private TransferConformationContract.appAction appAction;
     private boolean consumingBackPress = true;
 
     public static BaseFragment newInstance() {
@@ -20,6 +25,12 @@ public class TransferConfirmationFragment extends BaseFragment implements Transf
     }
 
     public TransferConfirmationFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        appAction = new TransferConfirmationPresenter(this);
     }
 
     @Override
@@ -31,17 +42,18 @@ public class TransferConfirmationFragment extends BaseFragment implements Transf
         txtNameTo = root.findViewById(R.id.nameClientTo);
         txtValueSent = root.findViewById(R.id.valueSent);
 
-        if (getArguments() != null) {
-            txtNameFrom.setText(getArguments().getString("EmailSent"));
-            txtNameTo.setText(getArguments().getString("NameUser"));
-            txtValueSent.setText(String.valueOf(getArguments().getDouble("getBalance")));
-        }
+        appAction.sendDataUser();
 
         return root;
     }
 
     @Override
-    public void getDataUser(String nameUserTo, String nameUserFrom, int value) {
+    public void getDataUser() {
+        if (getArguments() != null) {
+            txtNameFrom.setText(getArguments().getString("EmailSent"));
+            txtNameTo.setText(getArguments().getString("NameUser"));
+            txtValueSent.setText(String.valueOf(getArguments().getDouble("getBalance")));
+        }
     }
 
     @Override
